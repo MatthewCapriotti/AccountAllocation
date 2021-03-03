@@ -29,12 +29,12 @@ eval_g_eq <- function(x)
 lb <- c(0,0,0,0,0,0)
 ub <- c(4000,14000,2000,4000,14000,2000)
 #initial values
-x0 <- c(0,0,0,4000,0,2000)
+x0 <- c(0,0,0,0,0,0)
 # Set optimization options.
 local_opts <- list( "algorithm" = "NLOPT_LD_MMA", "xtol_rel" = 1.0e-15 )
 opts <- list( "algorithm"= "NLOPT_GN_ISRES",
               "xtol_rel"= 1.0e-15,
-              "maxeval"= 1600000,
+              "maxeval"= 16000000,
              "local_opts" = local_opts,
               "print_level" = 0 )
 res <- nloptr ( x0 = x0,
