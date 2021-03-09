@@ -1,28 +1,45 @@
 library('nloptr')
 
+bndYield = .04
+bndAppr = .02
+stckYield = .02
+stckAppr = .08
+reitYield = .04
+reitAppr = .04
+stockPercent = .7
+bondPercent = .2
+reitPercent = .1
+totalInvestment = 20000
+capitalGainTax = .15
+incomeTax = .3
+dividendTax = .15
+iraLimit = 6000
+years = 40
+
+
 # Objective Function
 eval_f <- function(x)
 {
-  return ( -(.85*(x[1]*(1 + (.04*.7) + .02)^40 - x[1]) + x[1]) -
-             (.85*(x[2]*(1 + (.02*.85) + .08)^40 - x[2]) + x[2]) -
-             (.85*(x[3]*(1 + (.04*.7) + .04)^40 - x[3]) + x[3]) -  
-             (x[4]*(1.06)^40) -
-             (x[5]*(1.1)^40) -
-             (x[6]*(1.08)^40)
+  return ( -( (1-capitalGainTax) *(x[1]*(1 + (bndYield*(1-incomeTax)) + bndAppr)^years - x[1]) + x[1]) -
+             ((1-capitalGainTax)*(x[2]*(1 + (stckYield*(1-dividendTax)) + stckAppr)^years - x[2]) + x[2]) -
+             ((1-capitalGainTax)*(x[3]*(1 + (reitYield*(1-incomeTax)) + reitAppr)^years - x[3]) + x[3]) -  
+             (x[4]*(1 + bndAppr + bndYield)^years) -
+             (x[5]*(1 + stckAppr + stckYield)^years) -
+             (x[6]*(1 + reitAppr + reitYield)^years)
                )
 }
 # Inequality constraints
 eval_g_ineq <- function(x)
 {
-  return (x[6] + x[5] + x[4] - 6000)
+  return (x[6] + x[5] + x[4] - iraLimit)
 }
 # Equality constraints
 eval_g_eq <- function(x)
 {
-  constr <- c( x[1] + x[2] + x[3] + x[4]+ x[5] + x[6] - 20000,
-           x[1] + x[4] - 4000,
-           x[2] + x[5] - 14000,
-           x[3] + x[6] - 2000)
+  constr <- c( x[1] + x[2] + x[3] + x[4]+ x[5] + x[6] - totalInvestment,
+           x[1] + x[4] - (totalInvestment * bondPercent),
+           x[2] + x[5] - (totalInvestment * stockPercent),
+           x[3] + x[6] - (totalInvestment * reitPercent))
   return (constr)
 }
 # Lower and upper bounds
