@@ -1,7 +1,12 @@
 
-#What should you put in Roth account vs personal brokerage
+# What should you put in Roth account vs personal brokerage
 
-Assumptions (these assumptions can easily be edited in the model):
+The purpose of this optimization model is to decide what account you should place your assets (IRA vs Roth IRA vs Personal Brokerage) in given an already determined asset allocation.  There a lot of assumptions in order to simplify the model and these assumptions can be easily altered if you wish to do so.
+
+The base model now shows largest growth assets should be put in a Roth IRA while the least tax-efficient assets should be put in a traditional IRA.
+
+### Assumptions:
+(these assumptions can easily be edited in the model)
 
 Avg bond yield: 4%
 
@@ -28,12 +33,12 @@ Compounded once annually
 Assume all stock dividends are qualified
 
 
-Variables
+### Variables
 
-X[1]= bonds in personal, x1
-X[2]= stocks in personal, x2
-X[3]= reits in personal, x3
+X[1]= bonds in personal,
+X[2]= stocks in personal,
+X[3]= reits in personal,
 
-X[4]= bond in ira, x4
-X[5]= stocks in ira, x5
-X[6]= reit in ira, x6
+X[4]= bonds in ira,
+X[5]= stocks in ira,
+X[6]= reits in ira
